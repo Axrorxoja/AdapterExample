@@ -1,13 +1,14 @@
 package com.example.adapterexample
 
 
-class Person(
+data class Person(
+    val id: Long,
     val name: String,
     val surName: String
 )
 
 object PersonGenerator {
     fun generatePersons() = List(100) {
-        Person("name-$it", "surName-$it")
+        Person(it.toLong(), "name-$it", "surName-$it")
     }
 }
