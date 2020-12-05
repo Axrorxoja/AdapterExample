@@ -1,51 +1,32 @@
 package com.example.adapterexample
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 
-//ArrayAdapter
 
 private const val TAG = "PersonAdapter"
 
 class PersonAdapter(
-    context: Context,
+    private val listener: OnItemClickListener,
     private val contentData: List<Person>
-) : BaseAdapter() {
-    private val inflater = LayoutInflater.from(context)
+) : RecyclerView.Adapter<PersonVH>() {
 
-    override fun getCount() = contentData.size
-
-    override fun getItem(index: Int) = contentData[index]
-
-    override fun getItemId(p0: Int) = p0.toLong()
-
-    override fun getView(index: Int, itemView: View?, parent: ViewGroup?): View {
-        val pair = if (itemView != null) {
-            Log.d(TAG, "getView: is not null")
-            val vh = itemView.tag as VH
-            Pair(itemView, vh)
-        } else {
-            Log.d(TAG, "getView: is null")
-            val rowItem = inflater.inflate(R.layout.item, parent, false)
-            val tv = rowItem.findViewById<TextView>(R.id.tv)
-            val vh = VH(tv)
-            rowItem.tag = vh
-            Pair(rowItem, vh)
-        }
-
-        val person = getItem(index)
-        val vh = pair.second
-        vh.tv.text = person.name
-        return pair.first
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonVH {
+        Log.d(TAG, "onCreateViewHolder: ")
+        val view: View = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_person, parent, false)
+        return PersonVH(view,listener)
     }
 
-    class VH(
-        val tv: TextView
-    )
+    override fun onBindViewHolder(holder: PersonVH, position: Int) {
+        Log.d(TAG, "onBindViewHolder: $position")
+        val person = contentData[position]
+        holder.onBind(person)
+    }
 
+    override fun getItemCount() = contentData.size
 }
