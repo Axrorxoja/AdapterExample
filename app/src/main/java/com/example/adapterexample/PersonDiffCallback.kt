@@ -16,7 +16,7 @@ class PersonDiffCallback(
         newItemPosition: Int
     ): Boolean {
         val oldItem = oldList[oldItemPosition]
-        val newItem = oldList[newItemPosition]
+        val newItem = newList[newItemPosition]
         return oldItem.id == newItem.id
     }
 
@@ -25,7 +25,7 @@ class PersonDiffCallback(
         newItemPosition: Int
     ): Boolean {
         val oldItem = oldList[oldItemPosition]
-        val newItem = oldList[newItemPosition]
+        val newItem = newList[newItemPosition]
         return oldItem == newItem
     }
 }

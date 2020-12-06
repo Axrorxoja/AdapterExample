@@ -30,24 +30,22 @@ class PersonAdapter(
     }
 
     fun submitData(newList: List<Person>) {
-
         val callback = PersonDiffCallback(contentData, newList)
         val diffResult = DiffUtil.calculateDiff(callback)
         diffResult.dispatchUpdatesTo(this)
 
         contentData.clear()
         contentData.addAll(newList)
+
     }
 
     override fun getItemCount() = contentData.size
 
     fun removeByPosition(position: Int) {
-
-        val array: Array<Person> = contentData.toTypedArray()
-        val newList = mutableListOf(*array)
+        val newList = mutableListOf(*contentData.toTypedArray())
         newList.removeAt(position)
 
-        val callback = PersonDiffCallback(contentData, newList)
+        val callback = PersonDiffCallback(contentData,newList)
         val diffResult = DiffUtil.calculateDiff(callback)
         diffResult.dispatchUpdatesTo(this)
 

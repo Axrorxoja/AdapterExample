@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
 
     private fun setUpRV() {
         val rvPerson = findViewById<RecyclerView>(R.id.rv_person)
-        val gridlayoutManager = GridLayoutManager(this, 2)
-        rvPerson.layoutManager = gridlayoutManager
         rvPerson.adapter = adapter
         val decorator = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         rvPerson.addItemDecoration(decorator)
